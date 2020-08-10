@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Toggle from './Toggle';
 import { useTitleInput } from './hooks/useTitleInput';
 
 const App = () => {
   const [name, setName] = useTitleInput('');
-
+  const ref = useRef();
+  console.log(ref);
   return (
-    <div className="main-wrapper">
-      <h1>Level Up Dishes</h1>
+    <div className="main-wrapper" ref={ref}>
+      <h1 onClick={() => console.log(ref.current.classList.toggle('active'))}>Level Up Dishes</h1>
       <Toggle/>
       <form onSubmit={e => {
         e.preventDefault();
