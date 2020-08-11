@@ -1,23 +1,14 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Toggle from './Toggle';
 import { useTitleInput } from './hooks/useTitleInput';
 
 const App = () => {
   const [name, setName] = useTitleInput('');
   const ref = useRef();
-  
-  const reverseWord = word => {
-    console.log("reverseWord called...");
-    return word.split("").reverse().join("");
-  }
-
-  const title = "Level Up Dishes";
-
-  const TitleReversed = useMemo(() => reverseWord(name), [name]);
 
   return (
     <div className="main-wrapper" ref={ref}>
-      <h1 onClick={() => ref.current.classList.toggle('active')}>{TitleReversed}</h1>
+      <h1 onClick={() => ref.current.classList.toggle('active')}>Level Up Dishes</h1>
       <Toggle/>
       
       <form onSubmit={e => { e.preventDefault(); }}>
