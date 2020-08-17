@@ -8,7 +8,6 @@ const App = () => {
   const [dishes, setDishes] = useState([]);
 
   const fetchDishes = async () => {
-    console.log("fetching dishes...")
     const rest = await fetch(
       'https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes'
     );
