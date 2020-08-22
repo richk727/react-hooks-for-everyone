@@ -1,23 +1,16 @@
 import React, { useState, useEffect, useRef, } from 'react';
+import useAbortableFetch from 'use-abortable-fetch';
 import Toggle from './Toggle';
 import { useTitleInput } from './hooks/useTitleInput';
 
 const App = () => {
   const [name, setName] = useTitleInput('');
   const ref = useRef();
-  const [dishes, setDishes] = useState([]);
 
-  const fetchDishes = async () => {
-    const rest = await fetch(
-      'https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes'
-    );
-    const data = await rest.json();
-    setDishes(data);
-  }
-
-  useEffect(() => {
-    fetchDishes();
-  }, [])
+  const { data, loading, error, abort } = useAbortableFetch(
+    'https://my-json-server.typicode.com/leveluptuts/fakeapi/dishes'
+  );
+  if(!data) return null;
 
   return (
     <div className="main-wrapper" ref={ref}>
@@ -28,7 +21,7 @@ const App = () => {
         <input type="text" onChange={(e) => setName(e.target.value)} value={name}/>
         <button>Submit</button>
       </form>
-      {dishes.map((dish, index) => (
+      {data.map((dish, index) => (
         <article className="dish-card dish-card--withImage" key={index}>
           <h3>{dish.title}</h3>
           <p>{dish.desc}</p>
